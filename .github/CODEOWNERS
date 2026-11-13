@@ -1,0 +1,8 @@
+
+# PredictX module ownership
+
+/ml/                  @/ml/ @anjlee123
+/backend/             @BACKEND_GITHUB_USERNAME
+/frontend/            @FRONTEND_GITHUB_USERNAME
+/analytics/           @ANALYTICS_GITHUB_USERNAME
+/docs/                @/docs/ @anjlee123
