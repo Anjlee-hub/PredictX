@@ -1,0 +1,207 @@
+import type {
+  FactoryKPIs,
+  DowntimeCategory,
+  OeeHistoryEntry,
+  ProductionTrendEntry,
+  FailureTrendEntry,
+  MachineUtilizationCell,
+  MaintenanceRecommendation,
+  MachinePerformanceRecord,
+  ReliabilityOverview,
+} from '../types';
+
+export const mockFactoryKPIs: FactoryKPIs = {
+  totalMachines: 10,
+  healthyMachines: 7,
+  criticalMachines: 1,
+  warningMachines: 2,
+  offlineMachines: 1,
+  maintenanceDue: 3,
+  overallOEE: 84.6,
+  availability: 91.2,
+  performance: 88.4,
+  quality: 98.6,
+  totalDowntimeHours: 14.2,
+  mtbfHours: 342,
+  mttrHours: 2.4,
+  totalUnits: 58420,
+  goodUnits: 57602,
+  rejectedUnits: 818,
+  todayAlertsCount: 8,
+  activePredictionsCount: 18,
+  productionEfficiency: 94.1,
+  energyUsageKwh: 124850,
+  machineUtilization: 86.3,
+};
+
+export const mockOeeHistory: OeeHistoryEntry[] = [
+  { date: 'Mon', oee: 81.2, availability: 89.0, performance: 85.0, quality: 97.8, target: 85.0 },
+  { date: 'Tue', oee: 83.5, availability: 90.4, performance: 86.8, quality: 98.2, target: 85.0 },
+  { date: 'Wed', oee: 85.1, availability: 92.1, performance: 88.5, quality: 98.4, target: 85.0 },
+  { date: 'Thu', oee: 82.9, availability: 89.8, performance: 87.1, quality: 98.1, target: 85.0 },
+  { date: 'Fri', oee: 86.4, availability: 93.0, performance: 89.6, quality: 98.8, target: 85.0 },
+  { date: 'Sat', oee: 87.2, availability: 94.2, performance: 90.1, quality: 99.0, target: 85.0 },
+  { date: 'Sun', oee: 84.6, availability: 91.2, performance: 88.4, quality: 98.6, target: 85.0 },
+];
+
+export const mockDowntimeCategories: DowntimeCategory[] = [
+  { category: 'Tool Breakage & Insert Wear', hours: 4.8, percentage: 33.8, incidents: 6, costImpact: 9600 },
+  { category: 'Thermal Overheating (ΔT Collapse)', hours: 3.2, percentage: 22.5, incidents: 4, costImpact: 6400 },
+  { category: 'Mechanical Jam & Material Clog', hours: 2.6, percentage: 18.3, incidents: 3, costImpact: 5200 },
+  { category: 'Spindle & Motor Electrical Trip', hours: 1.9, percentage: 13.4, incidents: 2, costImpact: 3800 },
+  { category: 'Die Setup & Tool Changeover', hours: 1.7, percentage: 12.0, incidents: 5, costImpact: 2100 },
+];
+
+export const mockProductionTrend: ProductionTrendEntry[] = [
+  { time: '06:00', actualUnits: 420, targetUnits: 450, scrapUnits: 8 },
+  { time: '08:00', actualUnits: 490, targetUnits: 480, scrapUnits: 6 },
+  { time: '10:00', actualUnits: 512, targetUnits: 500, scrapUnits: 7 },
+  { time: '12:00', actualUnits: 478, targetUnits: 490, scrapUnits: 12 },
+  { time: '14:00', actualUnits: 530, targetUnits: 500, scrapUnits: 5 },
+  { time: '16:00', actualUnits: 515, targetUnits: 510, scrapUnits: 8 },
+  { time: '18:00', actualUnits: 495, targetUnits: 500, scrapUnits: 9 },
+  { time: '20:00', actualUnits: 480, targetUnits: 480, scrapUnits: 6 },
+  { time: '22:00', actualUnits: 460, targetUnits: 470, scrapUnits: 11 },
+];
+
+export const mockFailureTrend: FailureTrendEntry[] = [
+  { month: 'Jun', incidents: 14, preventedByAI: 18, criticalEvents: 3 },
+  { month: 'Jul', incidents: 11, preventedByAI: 22, criticalEvents: 2 },
+  { month: 'Aug', incidents: 9, preventedByAI: 26, criticalEvents: 1 },
+  { month: 'Sep', incidents: 8, preventedByAI: 29, criticalEvents: 2 },
+  { month: 'Oct', incidents: 6, preventedByAI: 34, criticalEvents: 1 },
+  { month: 'Nov', incidents: 4, preventedByAI: 38, criticalEvents: 0 },
+];
+
+export const mockUtilizationHeatmap: MachineUtilizationCell[] = [
+  { machineId: 'MAC-001', machineName: 'CNC Milling Center 01', day: 'Mon', shift: 'Shift 1', utilizationRate: 94, status: 'optimal' },
+  { machineId: 'MAC-001', machineName: 'CNC Milling Center 01', day: 'Mon', shift: 'Shift 2', utilizationRate: 91, status: 'optimal' },
+  { machineId: 'MAC-001', machineName: 'CNC Milling Center 01', day: 'Mon', shift: 'Shift 3', utilizationRate: 78, status: 'moderate' },
+  { machineId: 'MAC-002', machineName: 'CNC Lathe Unit 02', day: 'Mon', shift: 'Shift 1', utilizationRate: 88, status: 'optimal' },
+  { machineId: 'MAC-002', machineName: 'CNC Lathe Unit 02', day: 'Mon', shift: 'Shift 2', utilizationRate: 82, status: 'moderate' },
+  { machineId: 'MAC-002', machineName: 'CNC Lathe Unit 02', day: 'Mon', shift: 'Shift 3', utilizationRate: 64, status: 'low' },
+  { machineId: 'MAC-004', machineName: 'Gas Turbine Unit 04', day: 'Mon', shift: 'Shift 1', utilizationRate: 42, status: 'low' },
+  { machineId: 'MAC-004', machineName: 'Gas Turbine Unit 04', day: 'Mon', shift: 'Shift 2', utilizationRate: 35, status: 'low' },
+  { machineId: 'MAC-004', machineName: 'Gas Turbine Unit 04', day: 'Mon', shift: 'Shift 3', utilizationRate: 0, status: 'low' },
+  { machineId: 'MAC-005', machineName: 'Fiber Laser Cell 05', day: 'Mon', shift: 'Shift 1', utilizationRate: 72, status: 'moderate' },
+  { machineId: 'MAC-005', machineName: 'Fiber Laser Cell 05', day: 'Mon', shift: 'Shift 2', utilizationRate: 68, status: 'moderate' },
+  { machineId: 'MAC-005', machineName: 'Fiber Laser Cell 05', day: 'Mon', shift: 'Shift 3', utilizationRate: 50, status: 'low' },
+  { machineId: 'MAC-003', machineName: 'Hydraulic Press 500T', day: 'Mon', shift: 'Shift 1', utilizationRate: 58, status: 'moderate' },
+  { machineId: 'MAC-003', machineName: 'Hydraulic Press 500T', day: 'Mon', shift: 'Shift 2', utilizationRate: 45, status: 'low' },
+  { machineId: 'MAC-003', machineName: 'Hydraulic Press 500T', day: 'Mon', shift: 'Shift 3', utilizationRate: 0, status: 'low' },
+];
+
+export const mockMaintenanceRecommendations: MaintenanceRecommendation[] = [
+  {
+    machine_id: 'MAC-004',
+    machine_name: 'Gas Turbine Unit 04',
+    problem: 'Excessive Equipment Downtime & Repeated Trips',
+    metric: 'Availability',
+    observed_value: 68.2,
+    unit: '%',
+    threshold: 85.0,
+    explanation: 'Machine offline 31.8% of planned shift hours. Severe thermal overheating and stator pressure drop caused 4 unplanned e-stops.',
+    action: 'Flush cooling heat exchanger circuits, inspect stator inlet valves, and replace thermal cutoff switch.',
+    priority: 'HIGH',
+    engine_source: 'RULE_BASED',
+    ml_augmented: true,
+    ml_risk_score: 0.84,
+  },
+  {
+    machine_id: 'MAC-005',
+    machine_name: 'Fiber Laser Cell 05',
+    problem: 'Elevated Defect / Scrap Rejection Rate',
+    metric: 'Quality',
+    observed_value: 88.4,
+    unit: '%',
+    threshold: 95.0,
+    explanation: 'First-pass yield degraded to 88.4% (Scrap rate: 11.6%). Beam focus offset and nozzle dross buildup creating burrs on cut edges.',
+    action: 'Recalibrate focal lens zero-point, replace 1.5mm copper cutting nozzle, and verify assist gas purity.',
+    priority: 'HIGH',
+    engine_source: 'RULE_BASED',
+    ml_augmented: false,
+  },
+  {
+    machine_id: 'MAC-003',
+    machine_name: 'Hydraulic Press 500T',
+    problem: 'Extended Restoration Duration / High MTTR',
+    metric: 'MTTR',
+    observed_value: 4.8,
+    unit: 'Hours',
+    threshold: 3.0,
+    explanation: 'Average repair duration is 4.8h. Protracted maintenance turnaround caused by hydraulic valve manifold diagnostic delays.',
+    action: 'Stage pre-calibrated proportional cartridge valves in line-side spares cabinet and update diagnostic cheat-sheet.',
+    priority: 'MEDIUM',
+    engine_source: 'RULE_BASED',
+    ml_augmented: false,
+  },
+  {
+    machine_id: 'MAC-002',
+    machine_name: 'CNC Lathe Unit 02',
+    problem: 'Operating Below Design Speed (Micro-Stoppages)',
+    metric: 'Performance',
+    observed_value: 82.1,
+    unit: '%',
+    threshold: 85.0,
+    explanation: 'Operator throttled feed rate to 75% due to turret vibration chatter during threading cycles.',
+    action: 'Inspect turret indexing lock pins, check spindle drive belt tension, and verify chuck clamp pressure.',
+    priority: 'MEDIUM',
+    engine_source: 'RULE_BASED',
+    ml_augmented: false,
+  },
+  {
+    machine_id: 'MAC-001',
+    machine_name: 'CNC Milling Center 01',
+    problem: 'Routine Preventive Wear Cycle Approaching',
+    metric: 'OEE',
+    observed_value: 91.4,
+    unit: '%',
+    threshold: 85.0,
+    explanation: 'Excellent overall OEE, but spindle bearings approaching 1,500 continuous runtime hours.',
+    action: 'Schedule grease replenishment during upcoming planned Sunday changeover window.',
+    priority: 'LOW',
+    engine_source: 'RULE_BASED',
+    ml_augmented: false,
+  },
+];
+
+export const mockMachinePerformanceList: MachinePerformanceRecord[] = [
+  { machine_id: 'MAC-001', machine_name: 'CNC Milling Center 01', machine_type: 'Milling', oee: 92.4, availability: 96.0, performance: 94.0, quality: 99.0, total_units: 8400, good_units: 8316, rejected_units: 84, downtime_hours: 4.2, status: 'World-Class' },
+  { machine_id: 'MAC-002', machine_name: 'CNC Lathe Unit 02', machine_type: 'Turning', oee: 88.1, availability: 91.0, performance: 89.0, quality: 98.0, total_units: 7200, good_units: 7056, rejected_units: 144, downtime_hours: 8.5, status: 'Acceptable' },
+  { machine_id: 'MAC-006', machine_name: 'Robotic Welding Cell 06', machine_type: 'Robotics', oee: 84.8, availability: 90.0, performance: 86.0, quality: 99.0, total_units: 6800, good_units: 6732, rejected_units: 68, downtime_hours: 9.6, status: 'Acceptable' },
+  { machine_id: 'MAC-008', machine_name: 'Vertical Machining 08', machine_type: 'Milling', oee: 82.5, availability: 88.0, performance: 85.0, quality: 98.0, total_units: 6200, good_units: 6076, rejected_units: 124, downtime_hours: 11.2, status: 'Acceptable' },
+  { machine_id: 'MAC-007', machine_name: 'Screw Air Compressor 07', machine_type: 'Utility', oee: 79.4, availability: 85.0, performance: 82.0, quality: 97.0, total_units: 5100, good_units: 4947, rejected_units: 153, downtime_hours: 14.1, status: 'Acceptable' },
+  { machine_id: 'MAC-005', machine_name: 'Fiber Laser Cell 05', machine_type: 'Fabrication', oee: 71.0, availability: 76.0, performance: 74.0, quality: 88.4, total_units: 5900, good_units: 5216, rejected_units: 684, downtime_hours: 18.4, status: 'Acceptable' },
+  { machine_id: 'MAC-003', machine_name: 'Hydraulic Press 500T', machine_type: 'Stamping', oee: 68.2, availability: 74.0, performance: 71.0, quality: 96.0, total_units: 4800, good_units: 4608, rejected_units: 192, downtime_hours: 22.8, status: 'Underperforming' },
+  { machine_id: 'MAC-004', machine_name: 'Gas Turbine Unit 04', machine_type: 'Energy', oee: 62.5, availability: 68.2, performance: 65.0, quality: 95.0, total_units: 3200, good_units: 3040, rejected_units: 160, downtime_hours: 31.5, status: 'Critical Loss' },
+];
+
+export const mockReliabilityOverview: ReliabilityOverview = {
+  factory_mtbf_hours: 342.0,
+  factory_mttr_hours: 2.4,
+  factory_mttr_minutes: 144.0,
+  total_operating_hours: 2680.0,
+  total_repair_hours: 18.8,
+  total_failures: 8,
+  total_repairs: 8,
+  machine_mtbf_rankings: [
+    { machine_id: 'MAC-004', machine_name: 'Gas Turbine Unit 04', operating_time_hours: 215.0, failure_count: 4, mtbf_hours: 53.8, mtbf_display: '53.8h', status: 'CRITICAL', reliability_tier: 'High Failure Frequency' },
+    { machine_id: 'MAC-003', machine_name: 'Hydraulic Press 500T', operating_time_hours: 280.0, failure_count: 2, mtbf_hours: 140.0, mtbf_display: '140.0h', status: 'WARNING', reliability_tier: 'Elevated Failure Frequency' },
+    { machine_id: 'MAC-005', machine_name: 'Fiber Laser Cell 05', operating_time_hours: 310.0, failure_count: 1, mtbf_hours: 310.0, mtbf_display: '310.0h', status: 'OPTIMAL', reliability_tier: 'World-Class Reliability' },
+    { machine_id: 'MAC-002', machine_name: 'CNC Lathe Unit 02', operating_time_hours: 325.0, failure_count: 1, mtbf_hours: 325.0, mtbf_display: '325.0h', status: 'OPTIMAL', reliability_tier: 'World-Class Reliability' },
+    { machine_id: 'MAC-001', machine_name: 'CNC Milling Center 01', operating_time_hours: 335.0, failure_count: 0, mtbf_hours: 335.0, mtbf_display: '335.0h (Zero Failures)', status: 'EXCELLENT', reliability_tier: 'High Reliability (Zero Failures)' },
+  ],
+  machine_mttr_rankings: [
+    { machine_id: 'MAC-004', machine_name: 'Gas Turbine Unit 04', total_repair_time_hours: 18.2, repair_count: 4, mttr_hours: 4.55, mttr_minutes: 273.0, mttr_display: '4.6h (273 min)', status: 'PROLONGED', maintainability_tier: 'Elevated Repair Duration (3 - 5h)' },
+    { machine_id: 'MAC-003', machine_name: 'Hydraulic Press 500T', total_repair_time_hours: 5.6, repair_count: 2, mttr_hours: 2.8, mttr_minutes: 168.0, mttr_display: '2.8h (168 min)', status: 'ACCEPTABLE', maintainability_tier: 'Standard Maintainability (1.5 - 3h)' },
+    { machine_id: 'MAC-002', machine_name: 'CNC Lathe Unit 02', total_repair_time_hours: 1.8, repair_count: 1, mttr_hours: 1.8, mttr_minutes: 108.0, mttr_display: '1.8h (108 min)', status: 'ACCEPTABLE', maintainability_tier: 'Standard Maintainability (1.5 - 3h)' },
+    { machine_id: 'MAC-005', machine_name: 'Fiber Laser Cell 05', total_repair_time_hours: 1.2, repair_count: 1, mttr_hours: 1.2, mttr_minutes: 72.0, mttr_display: '1.2h (72 min)', status: 'RAPID', maintainability_tier: 'High Maintainability (< 1.5h)' },
+    { machine_id: 'MAC-001', machine_name: 'CNC Milling Center 01', total_repair_time_hours: 0.0, repair_count: 0, mttr_hours: 0.0, mttr_minutes: 0.0, mttr_display: '0.0h (No Repairs)', status: 'NO_REPAIRS', maintainability_tier: 'No Interventions Required' },
+  ],
+  frequent_failure_machines: [
+    { machine_id: 'MAC-004', machine_name: 'Gas Turbine Unit 04', failure_count: 4, status: 'CRITICAL' }
+  ],
+  prolonged_repair_machines: [
+    { machine_id: 'MAC-004', machine_name: 'Gas Turbine Unit 04', mttr_hours: 4.55, status: 'PROLONGED' }
+  ],
+};
