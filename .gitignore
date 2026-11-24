@@ -38,3 +38,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Project-specific virtual environments
+.venv-ml/
